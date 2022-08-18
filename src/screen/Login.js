@@ -1,13 +1,58 @@
-//import liraries
-import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  KeyboardAvoidingView,
+  SafeAreaView,
+  Platform,
+} from 'react-native';
+
+import Input from '../component/inputForm/fields';
+import MessageInput from '../component/inputForm/messagefields';
+import SubmitButton from '../component/Button/submitbtn';
 
 // create a component
 const Login = () => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [mobile, setMobile] = useState('');
+  const [add, setAdd] = useState('');
+
+  // console.log(name);
   return (
-    <View style={styles.container}>
-      <Text>Login</Text>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={{flex:1}}>
+        <View style={styles.mainContainer}>
+          <Text style={styles.ContactUS}>Contact Us</Text>
+          <Input
+            placeholder={'Name'}
+            keyboardType={'default'}
+            textContentType={'name'}
+            onChangeText={text => setName(text)}
+          />
+          <Input
+            placeholder={'Email id'}
+            keyboardType={'email-address'}
+            textContentType={'emailAddress'}
+            onChangeText={text => setEmail(text)}
+          />
+          <Input
+            placeholder={'Mobile No'}
+            keyboardType={'phone-pad'}
+            textContentType={'telephoneNumber'}
+            onChangeText={text => setMobile(text)}
+          />
+
+          <MessageInput onChangeText={text => setAdd(text)} />
+          <SubmitButton
+            onPress={() => console.log({name, email, mobile, add})}
+          />
+        </View>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 
@@ -15,9 +60,18 @@ const Login = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#2c3e50',
+    backgroundColor: 'white',
+  },
+  mainContainer: {
+    marginHorizontal: '10%',
+  },
+  ContactUS: {
+    color: 'black',
+    marginVertical: '20%',
+    fontSize: 25,
+    fontWeight: 'bold',
+    marginHorizontal: '20%',
   },
 });
 
